@@ -43,10 +43,6 @@ function render () {
 }
 ```
 
-## TBD - Composition of containers?
-
-Right now you can do this sort of awkwardly, but it may be nice to come up with a consistent pattern for mixing them together.
-
 ## License
 
 MIT
