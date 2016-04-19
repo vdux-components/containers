@@ -35,9 +35,9 @@ function render ({props, state, local, children}) {
       {
         typeof btn === 'function'
           ? btn(api)
-          : <span onClick={api.toggle}>{btn}</span>
+          : <span onClick={api.toggle} style={{cursor: 'pointer'}}>{btn}</span>
       }
-      <DropdownMenu {...props} open={open} onDismiss={[local(close), props.onDismiss]}>
+      <DropdownMenu {...props} open={open} onDismiss={[api.close, props.onDismiss]}>
         {children}
       </DropdownMenu>
     </Dropdown>

@@ -11,8 +11,10 @@ import {Button} from 'vdux-ui'
  */
 
 function render ({props, children}) {
+  const {ui = Button} = props
+
   return (
-    <CSSContainer ui={Button} hoverProps={{highlight: true}} lingerProps={{ttShown: true}} {...props}>
+    <CSSContainer hoverProps={{highlight: true}} lingerProps={{ttShown: true}} {...props} ui={ui}>
       {children}
     </CSSContainer>
   )
