@@ -2,7 +2,7 @@
   "name": "vdux-containers",
   "description": "Container components that wrap the components in vdux-ui and provide them with stateful behavior",
   "repository": "git://github.com/vdux-components/containers.git",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "license": "MIT",
   "main": "lib/index.js",
   "scripts": {
