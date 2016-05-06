@@ -51,12 +51,27 @@ function render ({props, children, state, local}) {
   )
 }
 
+function onUpdate (prev, next) {
+  const {props, local, state} = next
+  const {lingerDelay = 500} = props
+
+  if (next.state.hover && !prev.state.hover) {
+    return dispatch => dispatch(local(storeTimeoutId)(setTimeout(() => dispatch(local(linger)()), lingerDelay)))
+  }
+
+  if (!next.state.hover && prev.state.hover) {
+    clearTimeout(state.timeoutId)
+    return local(storeTimeoutId)(null)
+  }
+}
+
 function afterRender ({local, state, path, props}, node) {
   const {hoverProps, activeProps, focusProps, lingerProps, lingerDelay = 500} = props
 
   delegate()
   return dispatch => {
     clear(node, path)
+    clear(document, path)
 
     if (hoverProps || lingerProps) {
       handle(node, path, 'mouseenter', () => {
@@ -69,9 +84,8 @@ function afterRender ({local, state, path, props}, node) {
         dispatch(local(mouseLeave)())
       })
 
-      if (state.hover) {
-        handle(document, path, 'mousemove', (e, target) => contains(node, target) || dispatch(local(mouseLeave)()))
-        setTimeout(() => prop(node, 'hover') && dispatch(local(linger)()), lingerDelay)
+      if (state.hover && !state.linger) {
+        handle(document, path, 'mousemove', (e) => contains(node, e.target) || dispatch(local(mouseLeave)()))
       }
     }
 
@@ -89,7 +103,8 @@ function afterRender ({local, state, path, props}, node) {
   }
 }
 
-function onRemove ({path}) {
+function onRemove ({path, state}) {
+  clearTimeout(state.timeoutId)
   clear(document, path)
 }
 
@@ -132,6 +147,7 @@ const mouseUp = createAction('<CSSContainer/>: mouseUp', null, metaCreator)
 const focus = createAction('<CSSContainer/>: focus', null, metaCreator)
 const blur = createAction('<CSSContainer/>: blur', null, metaCreator)
 const linger = createAction('<CSSContainer/>: linger', null, metaCreator)
+const storeTimeoutId = createAction('<CSSContainer/>: storeTimeoutId', null, metaCreator)
 
 /**
  * Reducer
@@ -144,7 +160,8 @@ const reducer = handleActions({
   [mouseUp]: state => ({...state, active: false}),
   [focus]: state => ({...state, focus: true}),
   [blur]: state => ({...state, focus: false}),
-  [linger]: state => ({...state, linger: true})
+  [linger]: state => ({...state, linger: true}),
+  [storeTimeoutId]: (state, timeoutId) => ({...state, timeoutId})
 })
 
 /**
@@ -174,6 +191,7 @@ function delegate () {
         }, store)
       }
 
+      if (!e.bubbles) break
       node = node.parentNode
     }
   }, true))
@@ -196,6 +214,7 @@ function handler (a, b) {
 export default {
   initialState,
   render,
+  onUpdate,
   afterRender,
   reducer,
   onRemove
