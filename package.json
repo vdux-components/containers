@@ -13,9 +13,10 @@
   "dependencies": {
     "@f/combine-reducers": "^1.2.1",
     "@f/create-action": "^1.1.1",
+    "@f/foreach-obj": "^1.1.1",
     "@f/handle-actions": "^1.1.1",
     "@f/omit": "^2.2.3",
-    "vdux-ui": "^1.1.2"
+    "vdux-ui": "^1.2.0"
   },
   "devDependencies": {
     "@f/trigger-event": "^1.0.2",

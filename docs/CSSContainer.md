@@ -1,6 +1,6 @@
 # CSSContainer
 
-Add hover/active/focus state and lets you pass along different props when any of these conditions are true.
+Add hover/active/focus/linger state and lets you pass along different props when any of these conditions are true.
 
 ## Usage
 
@@ -25,8 +25,5 @@ function render ({props, children}) {
   * `hoverProps` - Props to pass along when the component is hovered
   * `activeProps` - Props to pass along when the component is active
   * `focusProps` - Props to pass along when the component is focused
-
-## CSSEmulator
-
-This component assumes the presence of [vdux-css-emulator](https://github.com/vdux-components/vdux-css-emulator) beneath it in the hierarchy, or something that provides `onHoverChange`, `onActiveChange`, and `onFocusChange` apis.
-
+  * `lingerProps` - This is a synthetic state that happens if the user hovers over an element for a specified number of milliseconds. That number defaults to `500` but can be set explicitly with the `lingerDelay` prop.
+  * `lingerDelay` - How long of a hover is required to trigger the `linger` state.

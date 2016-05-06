@@ -7,39 +7,20 @@ import element from 'vdux/element'
 import MenuItem from './MenuItem'
 import Dropdown from './Dropdown'
 import Button from './Button'
+import map from '@f/map-obj'
 import Input from './Input'
-
-/**
- * Wrap
- */
-
-function wrap (components) {
-  const result = {}
-
-  for (let key in components) {
-    const Component = components[key]
-
-    result[key] = function render ({props, children}) {
-      return (
-        <CSSContainer ui={Component} {...props}>
-          {children}
-        </CSSContainer>
-      )
-    }
-  }
-
-  return result
-}
+import wrap from './wrap'
 
 /**
  * Exports
  */
 
 module.exports = {
-  ...wrap(require('vdux-ui')),
+  ...map(wrap(CSSContainer), require('vdux-ui')),
   CSSContainer,
   Button,
   MenuItem,
   Dropdown,
-  Input
+  Input,
+  wrap
 }
