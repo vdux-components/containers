@@ -7,6 +7,7 @@ import createAction from '@f/create-action'
 import CSSContainer from './CSSContainer'
 import element from 'vdux/element'
 import {Input} from 'vdux-ui'
+import wrap from './wrap'
 
 /**
  * Input container
@@ -47,7 +48,7 @@ const reducer = handleActions({
  * Exports
  */
 
-export default {
+export default wrap(CSSContainer)({
   reducer,
   render
-}
+})

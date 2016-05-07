@@ -8,7 +8,7 @@ import element from 'vdux/element'
  * Wrap a component in a container
  */
 
-function wrap (Container, defaultProps) {
+function wrap (Container, defaultProps = {}) {
   return Component => ({
     render ({props, children}) {
       return (
