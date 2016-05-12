@@ -35,7 +35,7 @@ test('<CSSContainer/> should work with hover', t => {
   t.equal(node.getAttribute('name'), 'test', 'sets again on hover')
 
   // Unhover on mousemove anywhere outside the target
-  trigger(document.body, 'mousemove')
+  trigger(document.body, 'mousemove', {bubbles: true})
   node = render(<CSSContainer ui={Block} hoverProps={{name: 'test'}} />)
   t.equal(node.getAttribute('name'), null, 'clears on outside mousemove')
 
@@ -100,7 +100,7 @@ test('<CSSContainer/> should nest and work with multiple concurrently active ins
   t.equal(node.getAttribute('name'), 'test', 'sets outer on hover')
   t.equal(inner.getAttribute('name'), 'test', 'sets inner on hover')
 
-  trigger(document.body, 'mousemove')
+  trigger(document.body, 'mousemove', {bubbles: true})
 
   node = render(<CSSContainer ui={Block} hoverProps={{name: 'test'}}><CSSContainer ui={Block} id='inner' hoverProps={{name: 'test'}} /></CSSContainer>)
   t.equal(node.getAttribute('name'), null, 'clears outer on outside mousemove')
