@@ -17,7 +17,7 @@ function render ({props, children}) {
   const {ui: Tt = Tooltip, message, show, placement, space, tooltipProps = {}, ...otherProps} = props
 
   return (
-    <Base relative overflow='visible' {...otherProps}>
+    <Base overflow='visible' {...otherProps}>
       {children}
       <Tt placement={placement} space={space} show={show} {...tooltipProps}>
         {message}
