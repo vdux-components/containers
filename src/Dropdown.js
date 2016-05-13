@@ -24,14 +24,14 @@ function initialState () {
 
 function render ({props, state, local, children}) {
   const {open} = state
-  const {btn} = props
+  const {btn, closeOnEsc = true} = props
   const api = {toggle: local(toggle), close: local(close)}
 
   if (props.ref) props.ref(api)
   if (!props.btn) throw new Error('Forgot to pass required `btn` prop to <Dropdown/>')
 
   return (
-    <Dropdown>
+    <Dropdown onKeyup={{esc: closeOnEsc && api.close}}>
       {
         typeof btn === 'function'
           ? btn(api)
