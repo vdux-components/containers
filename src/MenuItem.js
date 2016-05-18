@@ -12,7 +12,7 @@ import CSSContainer from './CSSContainer'
 
 function render ({props, children}) {
   return (
-    <CSSContainer ui={MenuItem} hoverProps={{highlight: true}} {...props}>
+    <CSSContainer ui={MenuItem} hoverProps={{highlight: 0.05}} {...props}>
       {children}
     </CSSContainer>
   )

@@ -19,7 +19,7 @@ function render ({props, children}) {
   return (
     <Base overflow='visible' {...otherProps}>
       {children}
-      <Tt placement={placement} space={space} show={show} {...tooltipProps}>
+      <Tt placement={placement} space={space} show={message && show} {...tooltipProps}>
         {message}
       </Tt>
     </Base>
