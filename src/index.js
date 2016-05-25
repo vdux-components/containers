@@ -8,6 +8,7 @@ import element from 'vdux/element'
 import MenuItem from './MenuItem'
 import Dropdown from './Dropdown'
 import Tooltip from './Tooltip'
+import Toggle from './Toggle'
 import Button from './Button'
 import map from '@f/map-obj'
 import Input from './Input'
@@ -25,6 +26,7 @@ module.exports = {
   MenuItem,
   Dropdown,
   Tooltip,
+  Toggle,
   Input,
 
   // Higher-order component wrappers
