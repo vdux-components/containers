@@ -12,6 +12,7 @@ import Button from './Button'
 import map from '@f/map-obj'
 import Input from './Input'
 import wrap from './wrap'
+import form from './form'
 
 /**
  * Exports
@@ -29,5 +30,6 @@ module.exports = {
 
   // Higher-order component wrappers
   subscribe,
-  wrap
+  wrap,
+  form
 }
