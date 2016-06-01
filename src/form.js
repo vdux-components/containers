@@ -35,17 +35,43 @@ function form (fn) {
         onSubmit = noop,
         onSuccess = noop, onFailure = noop
       } = fn(props)
+      let node
 
       return (
-        <form onSubmit={handleSubmit} onChange={handleChange}>
-          <Component {...props} {...state}>
+        <form ref={_node => node = _node} onSubmit={handleSubmit} onChange={handleChange}>
+          <Component {...props} {...state} toggleAll={toggleAll}>
             {children}
           </Component>
         </form>
       )
 
+      function * toggleAll (name) {
+        const checkboxes = node.querySelectorAll(name + '[]')
+        let changed = false
+
+        for (let i = 0; i < checkboxes.length; i++) {
+          const box = checkboxes[i]
+          if (!box.checked) {
+            box.checked = true
+            changed = true
+          }
+        }
+
+        if (!changed) {
+          for (let i = 0; i < checkboxes.length; i++) {
+            box.checked = false
+          }
+        }
+
+        yield fieldChanged(form, name)
+      }
+
       function * handleChange (e) {
         const {form, name} = e.target
+        yield fieldChanged(form, name)
+      }
+
+      function *fieldChanged (form, name) {
         const model = serialize(form)
         const {valid, errors} = validate(model, name)
 
