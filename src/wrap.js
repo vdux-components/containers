@@ -11,8 +11,12 @@ import element from 'vdux/element'
 function wrap (Container, defaultProps = {}) {
   return Component => ({
     render ({props, children}) {
+      const defProps = typeof defaultProps === 'function'
+        ? defaultProps(props)
+        : defaultProps
+
       return (
-        <Container {...defaultProps} ui={Component} {...props}>
+        <Container {...defProps} ui={Component} {...props}>
           {children}
         </Container>
       )

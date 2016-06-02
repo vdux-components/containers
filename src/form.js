@@ -46,7 +46,7 @@ function form (fn) {
       )
 
       function * toggleAll (name) {
-        const checkboxes = node.querySelectorAll(name + '[]')
+        const checkboxes = node.querySelectorAll(`input[name="${name}[]"]`)
         let changed = false
 
         for (let i = 0; i < checkboxes.length; i++) {
@@ -59,11 +59,11 @@ function form (fn) {
 
         if (!changed) {
           for (let i = 0; i < checkboxes.length; i++) {
-            box.checked = false
+            checkboxes[i].checked = false
           }
         }
 
-        yield fieldChanged(form, name)
+        yield fieldChanged(node, name)
       }
 
       function * handleChange (e) {
@@ -72,6 +72,8 @@ function form (fn) {
       }
 
       function *fieldChanged (form, name) {
+        name = normalizeName(name)
+
         const model = serialize(form)
         const {valid, errors} = validate(model, name)
 
@@ -151,6 +153,13 @@ function defaultValidate () {
     valid: true,
     errors: []
   }
+}
+
+function normalizeName (name) {
+  const idx = name.indexOf('[')
+  return idx === -1
+    ? name
+    : name.slice(0, idx)
 }
 
 /**
