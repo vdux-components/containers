@@ -3,6 +3,7 @@
  */
 
 import CSSContainer from './CSSContainer'
+import imageLoaded from './imageLoaded'
 import subscribe from './subscribe'
 import element from 'vdux/element'
 import MenuItem from './MenuItem'
@@ -31,6 +32,7 @@ module.exports = {
   Input,
 
   // Higher-order component wrappers
+  imageLoaded,
   subscribe,
   wrap,
   form

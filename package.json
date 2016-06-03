@@ -16,6 +16,7 @@
     "@f/foreach-obj": "^1.1.1",
     "@f/handle-actions": "^1.1.1",
     "@f/identity": "^1.1.1",
+    "@f/load-image": "^2.0.0",
     "@f/map-values": "^1.0.0",
     "@f/noop": "^1.2.0",
     "@f/omit": "^2.2.3",
