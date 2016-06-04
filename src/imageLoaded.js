@@ -8,6 +8,12 @@ import loadImage from '@f/load-image'
 import element from 'vdux/element'
 
 /**
+ * Constants
+ */
+
+const hasImage = (typeof window !== 'undefined')
+
+/**
  * imagesLoaded higher order component
  */
 
@@ -22,7 +28,7 @@ function imageLoaded (fn) {
     * onCreate ({props, local}) {
       const url = fn(props)
 
-      if (url) {
+      if (hasImage && url) {
         yield loadImage(url)
         yield local(loaded)()
       }
@@ -36,7 +42,7 @@ function imageLoaded (fn) {
       const purl = fn(prev.props)
       const nurl = fn(next.props)
 
-      if (nurl && purl !== nurl) {
+      if (hasImage && nurl && purl !== nurl) {
         yield next.local(unloaded)()
         yield loadImage(nurl)
         yield next.local(loaded)()
