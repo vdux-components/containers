@@ -7,6 +7,7 @@ import imageLoaded from './imageLoaded'
 import subscribe from './subscribe'
 import element from 'vdux/element'
 import MenuItem from './MenuItem'
+import Textarea from './Textarea'
 import Dropdown from './Dropdown'
 import Tooltip from './Tooltip'
 import Toggle from './Toggle'
@@ -30,6 +31,7 @@ module.exports = {
   Tooltip,
   Toggle,
   Input,
+  Textarea,
 
   // Higher-order component wrappers
   imageLoaded,
