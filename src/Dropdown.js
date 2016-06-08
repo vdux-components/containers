@@ -34,7 +34,7 @@ function render ({props, state, local, children}) {
     <Dropdown onKeyup={{esc: closeOnEsc && api.close}}>
       {
         typeof btn === 'function'
-          ? btn(api)
+          ? btn(api, open)
           : <span onClick={api.toggle} style={{cursor: 'pointer'}}>{btn}</span>
       }
       <DropdownMenu {...props} open={open} onDismiss={[api.close, props.onDismiss]}>
