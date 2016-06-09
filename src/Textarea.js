@@ -22,6 +22,12 @@ function onCreate (model) {
  */
 
 function render ({props}) {
+  const {h, sq, height} = props
+
+  if (h || sq || height) {
+    throw new Error('<Textarea/>: autogrowable textarea does not accept an explicit height. If you want to set a starting height parameter, uses the `rows` prop')
+  }
+
   return (
     <Textarea rows={1} {...props} />
   )
