@@ -13,6 +13,7 @@
   "dependencies": {
     "@f/combine-reducers": "^1.2.1",
     "@f/create-action": "^1.1.1",
+    "@f/equal": "^1.0.1",
     "@f/foreach-obj": "^1.1.1",
     "@f/handle-actions": "^1.1.1",
     "@f/identity": "^1.1.1",
@@ -38,7 +39,7 @@
     "hihat": "^2.6.4",
     "tap-dev-tool": "^1.3.0",
     "tape": "^4.2.0",
-    "vdux": "^2.4.5",
+    "vdux": "^2.4.9",
     "vdux-ui": "^1.1.0"
   }
 }
