@@ -30,10 +30,10 @@ function render ({props, children}) {
  * Exports
  */
 
-export default wrap(CSSContainer, {
-  lingerProps: {
+export default wrap(CSSContainer, ({immediate}) => ({
+  [immediate ? 'hoverProps' : 'lingerProps']: {
     show: true
   }
-})({
+}))({
   render
 })

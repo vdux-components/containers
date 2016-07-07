@@ -7,6 +7,7 @@ import createAction from '@f/create-action'
 import serialize from '@f/serialize-form'
 import element from 'vdux/element'
 import identity from '@f/identity'
+import equal from '@f/equal'
 import noop from '@f/noop'
 
 /**
@@ -29,6 +30,7 @@ function form (fn) {
         }, {})
       }
     },
+
     render ({props, state, local, children}) {
       const {
         validate = defaultValidate, cast = identity,
