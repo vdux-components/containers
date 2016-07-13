@@ -3,7 +3,7 @@
  */
 
 import combineReducers from '@f/combine-reducers'
-import {Dropdown, DropdownMenu} from 'vdux-ui'
+import {Dropdown, DropdownMenu, Box} from 'vdux-ui'
 import handleActions from '@f/handle-actions'
 import createAction from '@f/create-action'
 import element from 'vdux/element'
@@ -24,7 +24,7 @@ function initialState () {
 
 function render ({props, state, local, children}) {
   const {open} = state
-  const {btn, closeOnEsc = true} = props
+  const {btn, closeOnEsc = true, disabled} = props
   const api = {toggle: local(toggle), close: local(close)}
 
   if (props.ref) props.ref(api)
@@ -35,7 +35,7 @@ function render ({props, state, local, children}) {
       {
         typeof btn === 'function'
           ? btn(api, open)
-          : <span onClick={api.toggle} style={{cursor: 'pointer'}}>{btn}</span>
+          : <Box tag='span' onClick={!disabled && api.toggle} pointer={!disabled}>{btn}</Box>
       }
       <DropdownMenu {...props} open={open} onDismiss={[api.close, props.onDismiss]}>
         {children}
