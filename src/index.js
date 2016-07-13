@@ -2,6 +2,7 @@
  * Imports
  */
 
+import debounceAction from './debounceAction'
 import CSSContainer from './CSSContainer'
 import imageLoaded from './imageLoaded'
 import subscribe from './subscribe'
@@ -37,5 +38,8 @@ module.exports = {
   imageLoaded,
   subscribe,
   wrap,
-  form
+  form,
+
+  // Utilities
+  debounceAction
 }
