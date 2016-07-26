@@ -17,14 +17,15 @@ import noop from '@f/noop'
 function form (fn) {
   return Component => ({
     initialState ({props}) {
-      const {fields} = fn(props)
+      const {fields = [], defaults = {}} = fn(props)
+
       return {
         submitted: false,
         fields: fields.reduce((acc, field) => {
           acc[field] = {
             error: null,
             touched: false,
-            value: undefined
+            value: defaults[field]
           }
           return acc
         }, {})
@@ -41,7 +42,7 @@ function form (fn) {
 
       return (
         <form ref={_node => node = _node} onSubmit={handleSubmit} onChange={handleChange}>
-          <Component {...props} {...state} toggleAll={toggleAll}>
+          <Component {...props} {...state} toggleAll={toggleAll} submit={() => doSubmit(node)}>
             {children}
           </Component>
         </form>
@@ -88,8 +89,10 @@ function form (fn) {
 
       function * handleSubmit (e) {
         e.preventDefault()
+        yield doSubmit(e.target)
+      }
 
-        const form = e.target
+      function * doSubmit (form) {
         const model = serialize(form)
         const {valid, errors} = validate(model)
 

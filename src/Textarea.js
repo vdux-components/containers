@@ -16,7 +16,15 @@ import wrap from './wrap'
  */
 
 function onCreate (model) {
-  return () => setTimeout(() => autosize(findDOMNode(model).querySelector('textarea')))
+  return () => {
+    setTimeout(() => {
+      const ta = findDOMNode(model).querySelector('textarea')
+      autosize(ta)
+      const e = document.createEvent('event')
+      e.initEvent('autosize:update', true, false)
+      ta.dispatchEvent(e)
+    })
+  }
 }
 
 /**
