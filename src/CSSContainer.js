@@ -5,6 +5,7 @@
 import handleActions from '@f/handle-actions'
 import createAction from '@f/create-action'
 import contains from '@f/contains-element'
+import matches from '@f/matches-selector'
 import forEach from '@f/foreach-obj'
 import Document from 'vdux/document'
 import element from 'vdux/element'
@@ -84,8 +85,12 @@ function afterRender ({local, state, path, props}, node) {
         dispatch(local(mouseLeave)())
       })
 
-      if (state.hover && !state.linger) {
-        handle(document, path, 'mousemove', (e) => contains(node, e.target) || dispatch(local(mouseLeave)()))
+      if (state.hover) {
+        handle(document, path, 'mousemove', e => {
+          contains(node, e.target) || dispatch(local(mouseLeave)())
+        })
+
+        setTimeout(() => matches(node, ':hover') || dispatch(local(mouseLeave)()))
       }
     }
 
@@ -103,7 +108,7 @@ function afterRender ({local, state, path, props}, node) {
   }
 }
 
-function onRemove ({path, state}) {
+function onRemove ({path, state, props}) {
   clearTimeout(state.timeoutId)
   clear(document, path)
 }

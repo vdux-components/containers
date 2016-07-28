@@ -19,16 +19,17 @@
     "@f/identity": "^1.1.1",
     "@f/load-image": "^2.0.0",
     "@f/map-values": "^1.0.0",
+    "@f/matches-selector": "^1.0.1",
     "@f/noop": "^1.2.0",
     "@f/omit": "^2.2.3",
     "@f/serialize-form": "^1.0.0",
     "autosize": "^3.0.15",
-    "babel-plugin-transform-runtime": "^6.8.0",
     "vdux": "^2.4.9",
     "vdux-ui": "^1.2.0"
   },
   "devDependencies": {
     "@f/trigger-event": "^1.0.2",
+    "babel-plugin-transform-runtime": "^6.8.0",
     "babel-cli": "^6.5.1",
     "babel-core": "^6.5.2",
     "babel-plugin-transform-react-jsx": "^6.5.2",
