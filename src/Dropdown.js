@@ -45,6 +45,20 @@ function render ({props, state, local, children}) {
 }
 
 /**
+ * onUpdate
+ */
+
+function onUpdate (prev, next) {
+  if (!prev.state.open && next.state.open && next.props.onOpen) {
+    return next.props.onOpen()
+  }
+
+  if (prev.state.open && !next.state.open && next.props.onClose) {
+    return next.props.onClose()
+  }
+}
+
+/**
  * Actions
  */
 
@@ -69,5 +83,6 @@ const reducer = combineReducers({
 export default {
   initialState,
   render,
+  onUpdate,
   reducer
 }
