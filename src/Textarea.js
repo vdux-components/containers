@@ -17,13 +17,17 @@ import wrap from './wrap'
 
 function onCreate (model) {
   return () => {
+    if (typeof window === 'undefined') return
+
     setTimeout(() => {
       const ta = findDOMNode(model).querySelector('textarea')
-      autosize(ta)
-      const e = document.createEvent('event')
-      e.initEvent('autosize:update', true, false)
-      ta.dispatchEvent(e)
-    })
+      if (ta) {
+        autosize(ta)
+        const e = document.createEvent('event')
+        e.initEvent('autosize:update', true, false)
+        ta.dispatchEvent(e)
+      }
+    }, 100)
   }
 }
 
