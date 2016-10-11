@@ -53,6 +53,10 @@ function onCreate (model) {
 
         if (ta) {
           const newHeight = calculateHeight(ta)
+          ta.style.height = (isNaN(model.props.height)
+            ? newHeight
+            : Math.max(Number(model.props.height), newHeight)) + 'px'
+
           dispatch(model.local(setHeight)(newHeight))
         }
       }
@@ -129,13 +133,25 @@ function calculateHeight (ta) {
   const {boxSizing, paddingSize, borderSize, sizingStyle} = getNodeStyle(ta)
 
   hiddenTextarea = hiddenTextarea || createHiddenTextarea()
-  hiddenTextarea.value = ta.value || ta.placeholder || 'x'
   hiddenTextarea.setAttribute('style', sizingStyle + ';' + hiddenTextareaStyle)
 
+  hiddenTextarea.value = ''
+  const rowHeight = hiddenTextarea.scrollHeight - paddingSize
+  const numRows = Number(ta.getAttribute('rows'))
+  const heightOfRows = numRows * rowHeight
+  const baseHeight = isNaN(numRows)
+    ? 0
+    : (boxSizing === 'border-box' ? heightOfRows + paddingSize + borderSize : heightOfRows)
+
+  hiddenTextarea.value = ta.value || ta.placeholder || 'x'
   const height = hiddenTextarea.scrollHeight
-  return boxSizing === 'border-box'
-    ? height + borderSize
-    : height - paddingSize
+
+  return Math.max(
+    baseHeight,
+    boxSizing === 'border-box'
+      ? height + borderSize
+      : height - paddingSize
+  )
 }
 
 function getNodeStyle (node) {
