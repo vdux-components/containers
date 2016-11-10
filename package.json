@@ -24,7 +24,6 @@
     "@f/noop": "^1.2.0",
     "@f/omit": "^2.2.3",
     "@f/serialize-form": "^1.0.0",
-    "vdux": "^2.4.9",
     "vdux-ui": "^1.2.0"
   },
   "devDependencies": {
