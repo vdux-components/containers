@@ -2,53 +2,38 @@
  * Imports
  */
 
-import handleActions from '@f/handle-actions'
-import createAction from '@f/create-action'
 import CSSContainer from './CSSContainer'
-import element from 'vdux/element'
+import {component, element} from 'vdux'
 import {Input} from 'vdux-ui'
 import wrap from './wrap'
 
 /**
- * Input container
+ * <Input/>
  */
 
-function render ({props, state, local, children}) {
-  const {ui: Ui = Input, onInvalid, onChange} = props
-  const {invalid, message} = state
+export default wrap(CSSContainer)(component({
+  render ({props, state, children, actions}) {
+    const {ui: Ui = Input, onInvalid, onChange} = props
+    const {invalid, message} = state
 
-  return (
-    <Ui
-      invalid={invalid}
-      message={message}
-      {...props}
-      onChange={[onChange, local(e => setValidity(''))]}
-      onInvalid={[onInvalid, local(e => setValidity(e.target.validationMessage))]} />
-  )
-}
+    return (
+      <Ui
+        invalid={invalid}
+        message={message}
+        {...props}
+        onChange={[onChange, actions.clearValidity]}
+        onInvalid={[onInvalid, actions.setValidity]} />
+    )
+  },
 
-/**
- * Actions
- */
-
-const setValidity = createAction('<Input/>: setValidity')
-
-/**
- * Reducer
- */
-
-const reducer = handleActions({
-  [setValidity]: (state, message) => ({
-    invalid: !!message,
-    message: message
-  })
-})
-
-/**
- * Exports
- */
-
-export default wrap(CSSContainer)({
-  reducer,
-  render
-})
+  reducer: {
+    clearValidity: state => ({
+      invalid: false,
+      message: ''
+    }),
+    setValidity: (state, message) => ({
+      invalid: !!message,
+      message
+    })
+  }
+}))

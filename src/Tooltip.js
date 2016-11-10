@@ -2,38 +2,34 @@
  * Imports
  */
 
-import handleActions from '@f/handle-actions'
-import createAction from '@f/create-action'
 import CSSContainer from './CSSContainer'
+import {component, element} from 'vdux'
 import {Tooltip, Base} from 'vdux-ui'
-import element from 'vdux/element'
 import wrap from './wrap'
 
 /**
- * Tooltip container component
+ * Setup CSSContainer wrapper
  */
 
-function render ({props, children}) {
-  const {ui: Tt = Tooltip, message, show, placement, space, tooltipProps = {}, ...otherProps} = props
-
-  return (
-    <Base overflow='visible' {...otherProps}>
-      {children}
-      <Tt placement={placement} space={space} show={message && show} {...tooltipProps}>
-        {message}
-      </Tt>
-    </Base>
-  )
-}
+const wrapper = wrap(CSSContainer, ({immediate}) => ({
+  [immediate ? 'hoverProps' : 'lingerProps']: {show: true}
+}))
 
 /**
- * Exports
+ * <Tooltip/> container
  */
 
-export default wrap(CSSContainer, ({immediate}) => ({
-  [immediate ? 'hoverProps' : 'lingerProps']: {
-    show: true
+export default wrapper(component({
+  render ({props, children}) {
+    const {ui: Tt = Tooltip, message, show, placement, space, tooltipProps = {}, ...otherProps} = props
+
+    return (
+      <Base overflow='visible' {...otherProps}>
+        {children}
+        <Tt placement={placement} space={space} show={message && show} {...tooltipProps}>
+          {message}
+        </Tt>
+      </Base>
+    )
   }
-}))({
-  render
-})
+}))

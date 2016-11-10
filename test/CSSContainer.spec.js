@@ -4,7 +4,7 @@
 
 import trigger from '@f/trigger-event'
 import {CSSContainer} from '../src'
-import element from 'vdux/element'
+import {element} from 'vdux'
 import {Block} from 'vdux-ui'
 import vdux from 'vdux/dom'
 import test from 'tape'

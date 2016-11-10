@@ -2,30 +2,22 @@
  * Imports
  */
 
-import element from 'vdux/element'
+import {component, element} from 'vdux'
 
 /**
  * Wrap a component in a container
  */
 
-function wrap (Container, defaultProps = {}) {
-  return Component => ({
-    render ({props, children}) {
-      const defProps = typeof defaultProps === 'function'
-        ? defaultProps(props)
-        : defaultProps
+export default (Container, defaultProps = {}) => Component => component({
+  render ({props, children}) {
+    const defProps = typeof defaultProps === 'function'
+      ? defaultProps(props)
+      : defaultProps
 
-      return (
-        <Container {...defProps} ui={Component} {...props}>
-          {children}
-        </Container>
-      )
-    }
-  })
-}
-
-/**
- * Exports
- */
-
-export default wrap
+    return (
+      <Container {...defProps} ui={Component} {...props}>
+        {children}
+      </Container>
+    )
+  }
+})

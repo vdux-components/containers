@@ -2,26 +2,26 @@
  * Imports
  */
 
-import {MenuItem} from 'vdux-ui'
-import element from 'vdux/element'
 import CSSContainer from './CSSContainer'
+import {component, element} from 'vdux'
+import {MenuItem} from 'vdux-ui'
 
 /**
- * Button container
+ * Constants
  */
 
-function render ({props, children}) {
-  return (
-    <CSSContainer ui={MenuItem} hoverProps={{highlight: 0.05}} {...props}>
-      {children}
-    </CSSContainer>
-  )
-}
+const highlight = {highlight: 0.05}
 
 /**
- * Exports
+ * <MenuItem/> container
  */
 
-export default {
-  render
-}
+export default component({
+  render ({props, children}) {
+    return (
+      <CSSContainer ui={MenuItem} hoverProps={highlight} {...props}>
+        {children}
+      </CSSContainer>
+    )
+  }
+})

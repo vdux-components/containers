@@ -2,11 +2,10 @@
  * Imports
  */
 
-import debounceAction from './debounceAction'
 import CSSContainer from './CSSContainer'
 import imageLoaded from './imageLoaded'
 import subscribe from './subscribe'
-import element from 'vdux/element'
+import {element} from 'vdux'
 import MenuItem from './MenuItem'
 import Textarea from './Textarea'
 import Dropdown from './Dropdown'
@@ -38,8 +37,5 @@ module.exports = {
   imageLoaded,
   subscribe,
   wrap,
-  form,
-
-  // Utilities
-  debounceAction
+  form
 }

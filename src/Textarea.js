@@ -2,11 +2,8 @@
  * Imports
  */
 
-import handleActions from '@f/handle-actions'
-import createAction from '@f/create-action'
+import {component, decodeNode, findDOMNode, element} from 'vdux'
 import CSSContainer from './CSSContainer'
-import {findDOMNode} from 'virtex'
-import element from 'vdux/element'
 import {Textarea} from 'vdux-ui'
 import wrap from './wrap'
 
@@ -40,90 +37,77 @@ const sizingStyles = [
 ]
 
 /**
- * onCreate
- */
-
-function onCreate (model) {
-  return dispatch => {
-    setTimeout(() => {
-      const node = findDOMNode(model)
-
-      if (node) {
-        const ta = node.querySelector('textarea')
-
-        if (ta) {
-          const newHeight = calculateHeight(ta)
-          ta.style.height = (isNaN(model.props.height)
-            ? newHeight
-            : Math.max(Number(model.props.height), newHeight)) + 'px'
-
-          dispatch(model.local(setHeight)(newHeight))
-        }
-      }
-    })
-  }
-}
-
-/**
  * <Textarea/> container
  */
 
-function render ({props, state, local}) {
-  const {onChange, onInvalid, onInput} = props
-  const {invalid, message} = state
+export default wrap(CSSContainer)(component({
+  onCreate (model) {
+    return dispatch => {
+      setTimeout(() => {
+        const node = findDOMNode(model)
 
-  const height = isNaN(props.height)
-    ? state.height
-    : Math.max(Number(props.height), state.height)
+        if (node) {
+          const ta = node.querySelector('textarea')
 
-  return (
-    <Textarea
-      invalid={invalid}
-      message={message}
-      rows={1}
-      {...props}
-      resize='none'
-      overflow='hidden'
-      onInput={[handleInput, onInput]}
-      onChange={[onChange, local(e => setValidity(''))]}
-      onInvalid={[onInvalid, local(e => setValidity(e.target.validationMessage))]}/>
-  )
+          if (ta) {
+            const newHeight = calculateHeight(ta)
+            ta.style.height = (isNaN(model.props.height)
+              ? newHeight
+              : Math.max(Number(model.props.height), newHeight)) + 'px'
 
-  function handleInput (e) {
-    const newHeight = calculateHeight(e.target)
-
-    if (newHeight !== state.height) {
-      e.target.style.height = isNaN(props.height)
-        ? newHeight + 'px'
-        : Math.max(Number(props.height), state.height) + 'px'
-
-      return local(setHeight)(newHeight)
+            dispatch(model.actions.setHeight(newHeight))
+          }
+        }
+      })
     }
+  },
+
+  render ({props, state, actions}) {
+    const {onChange, onInvalid, onInput} = props
+    const {invalid, message} = state
+
+    return (
+      <Textarea
+        invalid={invalid}
+        message={message}
+        rows={1}
+        {...props}
+        resize='none'
+        overflow='hidden'
+        onInput={[decodeNode(actions.handleInput(props.height, state.height)), onInput]}
+        onChange={[onChange, actions.clearValidity]}
+        onInvalid={[onInvalid, actions.setValidity]} />
+    )
+  },
+
+  controller: {
+    * handleInput ({actions}, initialHeight, currentHeight, node) {
+      const newHeight = calculateHeight(node)
+
+      if (newHeight !== currentHeight) {
+        node.style.height = isNaN(initialHeight)
+          ? newHeight + 'px'
+          : Math.max(Number(initialHeight), currentHeight) + 'px'
+
+        yield actions.setHeight(newHeight)
+      }
+    }
+  },
+
+  reducer: {
+    clearValidity: () => ({
+      invalid: false,
+      message: ''
+    }),
+    setValidity: (state, message) => ({
+      invalid: !!message,
+      message
+    }),
+    setHeight: (state, height) => ({
+      height
+    })
   }
-}
-
-/**
- * Actions
- */
-
-const setValidity = createAction('<Textarea/>: set validity')
-const setHeight = createAction('<Textarea/>: set height')
-
-/**
- * Reducer
- */
-
-const reducer = handleActions({
-  [setValidity]: (state, message) => ({
-    ...state,
-    invalid: !!message,
-    message: message
-  }),
-  [setHeight]: (state, height) => ({
-    ...state,
-    height
-  })
-})
+}))
 
 /**
  * Helpers
@@ -173,13 +157,3 @@ function createHiddenTextarea () {
 
   return node
 }
-
-/**
- * Exports
- */
-
-export default wrap(CSSContainer)({
-  onCreate,
-  reducer,
-  render
-})

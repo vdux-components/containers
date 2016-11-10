@@ -6,7 +6,7 @@ import test from 'tape'
 import flo from 'redux-flo'
 import vdux from 'vdux/dom'
 import {subscribe} from '../src'
-import element from 'vdux/element'
+import {element} from 'vdux'
 
 /**
  * Tests

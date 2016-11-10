@@ -5,7 +5,7 @@
 import test from 'tape'
 import vdux from 'vdux/dom'
 import {Tooltip} from '../src'
-import element from 'vdux/element'
+import {element} from 'vdux'
 import trigger from '@f/trigger-event'
 
 /**
