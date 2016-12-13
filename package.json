@@ -11,12 +11,9 @@
     "postversion": "git push && git push --tags && npm publish --access=public"
   },
   "dependencies": {
-    "@f/combine-reducers": "^1.2.1",
-    "@f/create-action": "^1.1.1",
     "@f/debounce": "^1.0.4",
     "@f/equal": "^1.0.1",
     "@f/foreach-obj": "^1.1.1",
-    "@f/handle-actions": "^1.1.1",
     "@f/identity": "^1.1.1",
     "@f/load-image": "^2.0.0",
     "@f/map-values": "^1.0.0",
