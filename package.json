@@ -11,6 +11,7 @@
     "postversion": "git push && git push --tags && npm publish --access=public"
   },
   "dependencies": {
+    "@f/contains-element": "^1.0.0",
     "@f/debounce": "^1.0.4",
     "@f/equal": "^1.0.1",
     "@f/foreach-obj": "^1.1.1",
