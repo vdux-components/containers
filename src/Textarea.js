@@ -43,6 +43,9 @@ const sizingStyles = [
 export default wrap(CSSContainer)(component({
   onCreate (model) {
     return dispatch => {
+      // Do not execute this code if we're on the server
+      if (typeof window === 'undefined') return
+
       setTimeout(() => {
         const node = findDOMNode(model)
 
