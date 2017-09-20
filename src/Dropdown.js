@@ -46,7 +46,7 @@ export default component({
   },
 
   reducer: {
-    toggle: state => ({open: !state.open, log: console.log(state.open)}),
+    toggle: state => ({open: !state.open}),
     close: state => ({open: false})
   }
 })
