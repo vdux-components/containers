@@ -49,7 +49,7 @@ export default wrap(CSSContainer)(component({
       setTimeout(() => {
         const node = findDOMNode(model)
 
-        if (node) {
+        if (node && typeof node.querySelector === 'function') {
           const ta = node.querySelector('textarea')
 
           if (ta) {
