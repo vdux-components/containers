@@ -3,7 +3,7 @@
  */
 
 import {Dropdown, DropdownMenu, Box} from 'vdux-ui'
-import {component, element} from 'vdux'
+import {stopPropagation, component, element} from 'vdux'
 
 /**
  * <Dropdown/>
@@ -22,7 +22,7 @@ export default component({
     if (!props.btn) throw new Error('Forgot to pass required `btn` prop to <Dropdown/>')
 
     return (
-      <Dropdown onKeyup={{esc: closeOnEsc && actions.close}}>
+      <Dropdown onKeyup={{esc: closeOnEsc && actions.close}} onClick={[stopPropagation, props.onClick, state.open && actions.close]}>
         {
           typeof btn === 'function'
             ? btn(actions, open)
@@ -46,7 +46,7 @@ export default component({
   },
 
   reducer: {
-    toggle: state => ({open: !state.open}),
+    toggle: state => ({open: !state.open, log: console.log(state.open)}),
     close: state => ({open: false})
   }
 })

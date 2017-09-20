@@ -8,7 +8,8 @@
   "scripts": {
     "prepublish": "make build",
     "postpublish": "make clean",
-    "postversion": "git push && git push --tags && npm publish --access=public"
+    "postversion": "git push && git push --tags && npm publish --access=public",
+    "watch": "babel src --out-dir lib --watch"
   },
   "dependencies": {
     "@f/contains-element": "^1.0.0",
@@ -37,6 +38,6 @@
     "hihat": "^2.6.4",
     "tap-dev-tool": "^1.3.0",
     "tape": "^4.2.0",
-    "vdux": "^2.4.9"
+    "vdux": "^3.0.10"
   }
 }
