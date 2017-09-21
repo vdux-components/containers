@@ -39,7 +39,7 @@ export default component({
     trigger () {
       document.body.click()
     }
-  }
+  },
 
   onUpdate (prev, next) {
     if (!prev.state.open && next.state.open && next.props.onOpen) {
