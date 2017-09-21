@@ -22,7 +22,7 @@ export default component({
     if (!props.btn) throw new Error('Forgot to pass required `btn` prop to <Dropdown/>')
 
     return (
-      <Dropdown onKeyup={{esc: closeOnEsc && actions.close}} onClick={[stopPropagation, props.onClick, state.open && actions.close]}>
+      <Dropdown onKeyup={{esc: closeOnEsc && actions.close}} onClick={[stopPropagation, props.onClick, actions.trigger]}>
         {
           typeof btn === 'function'
             ? btn(actions, open)
@@ -34,6 +34,12 @@ export default component({
       </Dropdown>
     )
   },
+
+  controller: {
+    trigger () {
+      document.body.click()
+    }
+  }
 
   onUpdate (prev, next) {
     if (!prev.state.open && next.state.open && next.props.onOpen) {
